@@ -43,3 +43,9 @@ treeNode* treeNode::searchFor(std::string & name) {
     }
     return res;
 }
+
+
+std::ostream& operator << (std::ostream& os, treeNode const & self) {
+    os << self.getName();
+    return os;
+}

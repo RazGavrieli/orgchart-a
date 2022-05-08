@@ -26,4 +26,5 @@
 
         /* --- functions --- */
             treeNode* searchFor(std::string &);
+            friend std::ostream& operator << (std::ostream& , treeNode const &);
     };
