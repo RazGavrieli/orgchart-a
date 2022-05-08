@@ -40,16 +40,17 @@ OrgChartIterator OrgChart::begin_level_order() {
     BFS MAGIC 
     */
     fillBFS(&orderedNodes, this->getRoot()); // DOES NOT WORK WELL
-
+    orderedNodes.push_back(nullptr); // end of the vector sign
     OrgChartIterator iterator(orderedNodes, mc, this);
     return iterator;
 }
 OrgChartIterator OrgChart::end_level_order() {
     std::vector<treeNode*> orderedNodes;
-    /* 
-    BFS MAGIC 
-    */
-    fillBFS(&orderedNodes, this->getRoot()); // DOES NOT WORK WELL
+    for (size_t i = 0; i < size; i++)
+    {
+        orderedNodes.push_back(nullptr);
+    }
+    
     OrgChartIterator iterator(orderedNodes, mc, this, size-1);
     return iterator;
 }
