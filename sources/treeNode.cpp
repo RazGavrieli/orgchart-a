@@ -13,6 +13,13 @@ treeNode::treeNode(std::string &new_name) {
     level = 0;
 }
 
+// treeNode::~treeNode() {
+//     for (size_t i = 0; i < childNodes.size(); i++)
+//     {
+//         delete childNodes.at(i);
+//     }
+// }
+
 std::string treeNode::getName() const { return name;}
 size_t treeNode::getLevel() const { return level;}
 treeNode* treeNode::getParent() const { return parentNode;}

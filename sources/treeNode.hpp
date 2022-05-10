@@ -14,6 +14,7 @@
         /* --- constructors --- */
             treeNode(std::string &, treeNode*); // may not be a reference?
             treeNode(std::string &);
+            //~treeNode();
         /* --- getters --- */
             std::string getName() const;
             size_t getLevel() const;
