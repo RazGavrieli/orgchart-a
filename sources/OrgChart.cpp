@@ -199,28 +199,6 @@ void OrgChart::fillBFS(std::vector<treeNode*>* orderedTreeNodes, treeNode* currP
 
 namespace ariel {
     std::ostream& operator <<(std::ostream& os, OrgChart const& self) {
-        /*
-            THIS IS OBVIOUSLY TEMPORARY IMPLEMENTATION
-        */
-            // os << "\tTREE:\n";
-            // os << "\t" << self.getRoot()->getName() << "\n";
-            // std::vector<treeNode*> level3;
-            // for (size_t i = 0; i < self.getRoot()->getChildren().size(); i++)
-            // {
-            //     os << self.getRoot()->getChildren().at(i)->getName() << "\t";
-            //     for (size_t j = 0; j < self.getRoot()->getChildren().at(i)->getChildren().size(); j++)
-            //     {
-            //         level3.push_back(self.getRoot()->getChildren().at(i)->getChildren().at(j));     
-            //     }   
-            // }
-            // os << "\n";
-            // for (size_t i = 0; i < level3.size(); i++)
-            // {
-            //     os << level3.at(i)->getName() << "\t";
-            // }
-        /* 
-            END OF TEMPORARY IMPLEMENTATION
-        */
             size_t last_level = 0;
             for (auto it = self.begin(); it != self.end(); ++it)
             {
@@ -229,7 +207,7 @@ namespace ariel {
                     os << "\n";
                 }
                 last_level = currNode->getLevel();
-                os << "\t" << currNode->getName() << "\t";
+                os << " " << currNode->getName() << " ";
             }
             
             return os;
@@ -274,12 +252,20 @@ OrgChart::OrgChartIterator OrgChart::OrgChartIterator::operator ++ (int){ // Pos
     return temp;
 }
 
-std::string OrgChart::OrgChartIterator::operator*() {
+std::string OrgChart::OrgChartIterator::operator*() const{
     if (this->mc!=mc) {
         throw std::runtime_error("Organizaion chart has been changed since iterator creation");
     }
     return orderedNodes.at(currPtr)->getName();
 }
+
+treeNode const * OrgChart::OrgChartIterator::operator->() const {
+    if (this->mc!=mc) {
+        throw std::runtime_error("Organizaion chart has been changed since iterator creation");
+    }
+    return orderedNodes.at(currPtr);
+}
+
 
 treeNode* OrgChart::OrgChartIterator::operator~() {
     if (this->mc!=mc) {

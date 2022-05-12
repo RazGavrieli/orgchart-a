@@ -20,6 +20,7 @@
             size_t getLevel() const;
             treeNode* getParent() const;
             std::vector<treeNode*> getChildren() const;
+            size_t size() const;
 
         /* --- setters --- */
             void addChild(treeNode *); // may not be a pointer? 

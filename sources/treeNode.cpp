@@ -24,6 +24,7 @@ std::string treeNode::getName() const { return name;}
 size_t treeNode::getLevel() const { return level;}
 treeNode* treeNode::getParent() const { return parentNode;}
 std::vector<treeNode*> treeNode::getChildren() const { return childNodes;}
+size_t treeNode::size() const { return name.size();}
 
 void treeNode::addChild(treeNode * new_node) {
     if (new_node->getParent()!=this) {

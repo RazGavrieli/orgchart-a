@@ -20,9 +20,9 @@ namespace ariel {
                 
                 OrgChartIterator& operator ++ (); // ++Prefix
                 OrgChartIterator operator ++ (int); // Postfix++
-                std::string operator*();
-                treeNode* operator~();
-                treeNode operator->();
+                std::string operator*() const; // would return a reference of iterator if we wanted to make modifications
+                treeNode* operator~();   // this is what operator* would be like if I believe in the tests.  This is used for delete
+                treeNode const * operator->() const;// 
 
         };                      // END OF NESTED CLASS
         // CLASS OrgChart:
