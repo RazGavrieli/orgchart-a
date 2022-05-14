@@ -38,6 +38,9 @@ void treeNode::setName(std::string & new_name) {
 }
 
 treeNode* treeNode::searchFor(std::string & name) {
+    /**
+     * @brief Recursivelty search through a tree for a given name.
+     */
     if (getName() == name) {
         return this;
     }

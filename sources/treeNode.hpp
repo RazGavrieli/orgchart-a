@@ -8,11 +8,11 @@
         std::vector<treeNode*> childNodes;
 
         std::string name;
-        size_t level; // should be parent (level+1)
+        size_t level; // as in parent.level + 1
 
         public:
         /* --- constructors --- */
-            treeNode(std::string &, treeNode*); // may not be a reference?
+            treeNode(std::string &, treeNode*); 
             treeNode(std::string &);
             //~treeNode();
         /* --- getters --- */
@@ -23,7 +23,7 @@
             size_t size() const;
 
         /* --- setters --- */
-            void addChild(treeNode *); // may not be a pointer? 
+            void addChild(treeNode *); 
             void setName(std::string &);
 
         /* --- functions --- */
