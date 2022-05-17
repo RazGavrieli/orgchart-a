@@ -70,6 +70,9 @@ OrgChart::OrgChartIterator OrgChart::begin_reverse_order()const {
 OrgChart::OrgChartIterator OrgChart::reverse_order()const{
     return end_iterator();
 }
+OrgChart::OrgChartIterator OrgChart::end_reverse_order()const{
+    return reverse_order();
+}
 
 OrgChart::OrgChartIterator OrgChart::begin_preorder() const{
     /**
@@ -142,6 +145,9 @@ OrgChart::OrgChartIterator::OrgChartIterator(std::vector<treeNode*> &orderedNode
 bool OrgChart::OrgChartIterator::operator != (OrgChart::OrgChartIterator const &other) {
      return !(*this == other);
  }
+ bool OrgChart::OrgChartIterator::operator < (OrgChart::OrgChartIterator const &other) { // for bad tests
+     return !(*this == other);
+ }
 namespace ariel{
     bool operator == (OrgChart::OrgChartIterator const &lhs, OrgChart::OrgChartIterator const &rhs) {
         return lhs.orderedNodes.at(lhs.currPtr) == rhs.orderedNodes.at(rhs.currPtr);
@@ -173,12 +179,18 @@ std::string OrgChart::OrgChartIterator::operator*() const{
     if (this->mc!=*this->currMc) {
         throw std::runtime_error("Organizaion chart has been changed since iterator creation");
     }
+    if (currPtr>=orderedNodes.size()-1) {
+        throw std::runtime_error("Iterator out of bounds!");
+    }
     return orderedNodes.at(currPtr)->getName(); // returns the name of the tree node
 }
 
 treeNode* OrgChart::OrgChartIterator::operator~() {
     if (this->mc!=*this->currMc) {
         throw std::runtime_error("Organizaion chart has been changed since iterator creation");
+    }
+    if (currPtr>=orderedNodes.size()-1) {
+        throw std::runtime_error("Iterator out of bounds!");
     }
     return orderedNodes.at(currPtr);             // returns the tree node itself
 }
@@ -195,6 +207,9 @@ treeNode* OrgChart::OrgChartIterator::operator~() {
 std::string const * OrgChart::OrgChartIterator::operator->() const {
     if (this->mc!=*this->currMc) {
         throw std::runtime_error("Organizaion chart has been changed since iterator creation");
+    }
+    if (currPtr>=orderedNodes.size()-1) {
+        throw std::runtime_error("Iterator out of bounds!");
     }
     return orderedNodes.at(currPtr)->getNamePtr();
 }

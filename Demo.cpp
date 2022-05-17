@@ -14,37 +14,50 @@ using namespace std;
 #include "OrgChart.hpp"
 using namespace ariel;
 
+#include <algorithm>
+
 int main()
 {
   OrgChart DemoRun;
-  DemoRun.add_root("10").add_sub("10","2");
-  DemoRun.add_sub("2","77").add_sub("10","34").add_sub("10","56").add_sub("10","100").add_sub("100", "7");
-
-  DemoRun.add_sub("2","88").add_sub("56", "1").add_sub("100","8").add_sub("100", "9");
-
-  cout << DemoRun;
-
-//   Input :            10
-//              /   /    \   \
+  DemoRun.add_root("10").add_sub("10", "2");
+  DemoRun.add_sub("2", "77").add_sub("10", "34").add_sub("10", "56").add_sub("10", "100").add_sub("100", "7");
+  DemoRun.add_sub("2", "88").add_sub("56", "1").add_sub("100", "8").add_sub("100", "9");
+  //   Input :          10
+  //              /   /    \   \
 //             2  34    56   100
-//            / \        |   / | \
+  //            / \        |   / | \
 //           77  88      1   7  8  9
 
-// Output : 10
-//          2 34 56 100
-//          77 88 1 7 8 9
-    cout << "\n";
-    // demonstrate the arrow operator:
+  cout << DemoRun;
+  // Output : 10
+  //          2 34 56 100
+  //          77 88 1 7 8 9
+  cout << "\n";
+  try
+  {
+    auto it = find(DemoRun.begin(), DemoRun.end(), "77"); // change 78 to something that is in the tree
+    cout << *it << "\n";
+  }
+  catch (...)
+  {
+  }
+  cout << "\n";
+  int i = 1;
+  if (std::all_of(DemoRun.begin(), DemoRun.end(), [i](std::string a)
+                  { return a.size() <= i; }))
+  {
+    cout << "all are smaller than " << i << "\n";
+  }
+  else
+    cout << "not all are smaller than " << i << "!\n";
+
   for (auto it = DemoRun.begin_preorder(); it != DemoRun.end_preorder(); ++it)
   {
-    cout << *it << " " ;
-  } // prints: 3 3 3 3 5 5
-  
+    cout << *it << " ";
+  }
+
   return 0;
 }
-
-
-
 
 // int main() {
 //   OrgChart organization;
@@ -71,18 +84,18 @@ int main()
 //   {
 //     cout << (*it) << " " ;
 //   } // prints: VP_SW VP_BI CTO CFO COO CEO
-  // for (auto it=organization.begin_preorder(); it!=organization.end_preorder(); ++it) {
-  //   cout << (*it) << " " ;
-  // }  // prints: CEO CTO VP_SW CFO COO VP_BI
+// for (auto it=organization.begin_preorder(); it!=organization.end_preorder(); ++it) {
+//   cout << (*it) << " " ;
+// }  // prints: CEO CTO VP_SW CFO COO VP_BI
 
-  // for (auto element : organization)
-  // { // this should work like level order
-  //   cout << element << " " ;
-  // } // prints: CEO CTO CFO COO VP_SW VP_BI
+// for (auto element : organization)
+// { // this should work like level order
+//   cout << element << " " ;
+// } // prints: CEO CTO CFO COO VP_SW VP_BI
 
-  // // demonstrate the arrow operator:
-  // for (auto it = organization.begin_level_order(); it != organization.end_level_order(); ++it)
-  // {
-  //   cout << it->size() << " " ;
-  // } // prints: 3 3 3 3 5 5
+// // demonstrate the arrow operator:
+// for (auto it = organization.begin_level_order(); it != organization.end_level_order(); ++it)
+// {
+//   cout << it->size() << " " ;
+// } // prints: 3 3 3 3 5 5
 //}

@@ -5,7 +5,7 @@
 namespace ariel {
     class OrgChart {
         public:
-        class OrgChartIterator { // NESTED CLASS
+        class OrgChartIterator : public std::iterator<std::forward_iterator_tag, treeNode*> { // NESTED CLASS
             size_t currPtr;
             size_t mc;
             std::vector<treeNode*> orderedNodes;
@@ -18,6 +18,7 @@ namespace ariel {
                     /* --- operators --- */
                 bool operator != (OrgChartIterator const &other);
                 friend bool operator == (OrgChartIterator const &lhs, OrgChartIterator const &rhs);
+                bool operator < (OrgChartIterator const &other); // for bad tests
     
                 OrgChartIterator& operator ++ (); 
                 OrgChartIterator operator ++ (int); 
@@ -34,6 +35,8 @@ namespace ariel {
         size_t mc;
         size_t size;
         size_t maxLevel;
+            OrgChartIterator end_iterator() const; 
+            OrgChartIterator level_iterator(bool) const;
         public:
                 /* --- constructos\destructors --- */
             OrgChart(); // deafult constructor
@@ -57,13 +60,12 @@ namespace ariel {
             OrgChartIterator end_level_order() const;
 
             OrgChartIterator begin_reverse_order() const;
-            OrgChartIterator reverse_order() const; 
+            OrgChartIterator reverse_order() const; // end reverse order
+            OrgChartIterator end_reverse_order() const; // for reverse_order saga
 
             OrgChartIterator begin_preorder() const;
             OrgChartIterator end_preorder() const;
 
-            OrgChartIterator end_iterator() const; 
-            OrgChartIterator level_iterator(bool) const;
 
             //void fillBFS(std::vector<treeNode*>*, treeNode*);  // USED ONLY IF THE TESTS WILL BE TOO SPECIFIC
  
@@ -73,4 +75,3 @@ namespace ariel {
             size_t getSize() const;   
     };
 }
-
