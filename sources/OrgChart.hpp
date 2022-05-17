@@ -12,7 +12,7 @@ namespace ariel {
             const size_t *currMc;
 
             public:
-                    /* --- constructos\destructors --- */
+                    /* --- constructors\destructors --- */
                 OrgChartIterator(std::vector<treeNode*> &, const size_t*, size_t);
 
                     /* --- operators --- */
@@ -24,7 +24,7 @@ namespace ariel {
                 std::string operator*() const; /* This would return a reference if we wanted to make modifications. 
                                 due to the tests being unpreditable I have to return a string type and not a node. */
                 treeNode* operator~();   /* This is what operator* would be if the tests were predictable. */
-                treeNode const * operator->() const; 
+                std::string const * operator->() const; 
                 
 
         };// END OF NESTED CLASS

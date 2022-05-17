@@ -18,9 +18,9 @@ int main()
 {
   OrgChart DemoRun;
   DemoRun.add_root("10").add_sub("10","2");
-  DemoRun.add_sub("2","77").add_sub("10","34").add_sub("10","100").add_sub("100", "7");
+  DemoRun.add_sub("2","77").add_sub("10","34").add_sub("10","56").add_sub("10","100").add_sub("100", "7");
 
-  DemoRun.add_sub("2","88").add_sub("10", "56").add_sub("56", "1").add_sub("100","8").add_sub("100", "9");
+  DemoRun.add_sub("2","88").add_sub("56", "1").add_sub("100","8").add_sub("100", "9");
 
   cout << DemoRun;
 
@@ -33,11 +33,12 @@ int main()
 // Output : 10
 //          2 34 56 100
 //          77 88 1 7 8 9
-  cout << "\n";
-  for (auto elem : DemoRun) 
+    cout << "\n";
+    // demonstrate the arrow operator:
+  for (auto it = DemoRun.begin_preorder(); it != DemoRun.end_preorder(); ++it)
   {
-    cout << elem << " ";
-  }
+    cout << *it << " " ;
+  } // prints: 3 3 3 3 5 5
   
   return 0;
 }
@@ -70,18 +71,18 @@ int main()
 //   {
 //     cout << (*it) << " " ;
 //   } // prints: VP_SW VP_BI CTO CFO COO CEO
-//   for (auto it=organization.begin_preorder(); it!=organization.end_preorder(); ++it) {
-//     cout << (*it) << " " ;
-//   }  // prints: CEO CTO VP_SW CFO COO VP_BI
+  // for (auto it=organization.begin_preorder(); it!=organization.end_preorder(); ++it) {
+  //   cout << (*it) << " " ;
+  // }  // prints: CEO CTO VP_SW CFO COO VP_BI
 
-//   for (auto element : organization)
-//   { // this should work like level order
-//     cout << element << " " ;
-//   } // prints: CEO CTO CFO COO VP_SW VP_BI
+  // for (auto element : organization)
+  // { // this should work like level order
+  //   cout << element << " " ;
+  // } // prints: CEO CTO CFO COO VP_SW VP_BI
 
-//   // demonstrate the arrow operator:
-//   for (auto it = organization.begin_level_order(); it != organization.end_level_order(); ++it)
-//   {
-//     cout << it->size() << " " ;
-//   } // prints: 3 3 3 3 5 5
-// }
+  // // demonstrate the arrow operator:
+  // for (auto it = organization.begin_level_order(); it != organization.end_level_order(); ++it)
+  // {
+  //   cout << it->size() << " " ;
+  // } // prints: 3 3 3 3 5 5
+//}

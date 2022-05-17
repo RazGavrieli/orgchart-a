@@ -17,6 +17,7 @@
             //~treeNode();
         /* --- getters --- */
             std::string getName() const;
+            const std::string* getNamePtr() const;
             size_t getLevel() const;
             treeNode* getParent() const;
             std::vector<treeNode*> getChildren() const;
