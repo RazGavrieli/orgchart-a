@@ -7,7 +7,7 @@ using namespace std;
 
 OrgChart::OrgChart() {
     mc = 0;
-    size = 1;
+    size = 0;
     rootNode = nullptr;
 }
 
@@ -29,6 +29,7 @@ OrgChart& OrgChart::add_root(std::string new_name) {
     treeNode *newNode = new treeNode(new_name); 
     rootNode = newNode;
     mc++;
+    size++;
     return *this;
 }
 
@@ -37,6 +38,9 @@ OrgChart& OrgChart::add_sub(std::string parent_name, std::string new_name) {
      * @brief Add subordinate to a given parent name of node. 
      * If the parent name was not found in the tree throw an exception. 
      */
+    if (rootNode==nullptr) {
+        throw std::runtime_error("The tree has no root!");
+    }
     treeNode *parentNode = rootNode->searchFor(parent_name);
     if (parentNode==nullptr) {
         throw std::runtime_error("The wanted name was not found in the tree");
@@ -53,14 +57,20 @@ OrgChart::~OrgChart() {
      * @brief Destructor for the Organization Chart. Only the nodes themselfs are on the heap.
      * Iterate through the nodes in a reverse order and delete them from the heap.
      */
+    if (this->rootNode==nullptr) {
+        return;
+    }
     for (auto it = begin_reverse_order(); it != reverse_order(); ++it)
     {
         delete ~it;
     }
 }
 
-OrgChart& OrgChart::operator=(OrgChart other) {
-    mc = 0;
+OrgChart& OrgChart::operator=(OrgChart const &other) {
+    if(this == &other) {
+      return *this;
+    }
+    mc = other.mc;
     size = other.size;
     rootNode = other.rootNode;
     return *this;

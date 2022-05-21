@@ -30,6 +30,9 @@ OrgChart::OrgChartIterator OrgChart::level_iterator(bool order) const{
      * @brief Create a vector @param orderedNodes a vector of treeNode pointers that is built in the required order. 
      * if @param order is true build level iterator, else build reverse level iterator. 
      */
+    if (this->getSize() == 0) {
+        throw std::runtime_error("Chart is empty!");
+    }
     queue<treeNode*> Queue;
     std::vector<treeNode*> orderedNodes;
 
@@ -79,6 +82,9 @@ OrgChart::OrgChartIterator OrgChart::begin_preorder() const{
      * @brief Create a vector @param orderedNodes a vector of treeNode pointers that is built in the required order. 
      * The algorithm is a simple preorder algorithm that uses a stack to iterate through the tree in the correct order.
      */
+    if (this->getSize() == 0) {
+        throw std::runtime_error("Chart is empty!");
+    }
     stack<treeNode*> Stack;
     std::vector<treeNode*> orderedNodes;
 
@@ -104,13 +110,13 @@ OrgChart::OrgChartIterator OrgChart::end_preorder()const {
 
 OrgChart::OrgChartIterator OrgChart::end_iterator() const{
     /* This implementation could be quicker if we would just create a vector with a singel cell holding "nullptr". */
-    std::vector<treeNode*> dummyVector;
-    for (size_t i = 0; i < size; i++)
-    {
-        dummyVector.push_back(nullptr);
+    if (this->getSize() == 0) {
+        throw std::runtime_error("Chart is empty!");
     }
+    std::vector<treeNode*> dummyVector;
+    dummyVector.push_back(nullptr);  
     
-    OrgChartIterator iterator(dummyVector, &this->mc, size-1);
+    OrgChartIterator iterator(dummyVector, &this->mc, 0);
     return iterator;
 }
 
@@ -142,12 +148,10 @@ OrgChart::OrgChartIterator::OrgChartIterator(std::vector<treeNode*> &orderedNode
     this->currPtr = pos;
 }
 
-bool OrgChart::OrgChartIterator::operator != (OrgChart::OrgChartIterator const &other) {
+bool OrgChart::OrgChartIterator::operator != (OrgChart::OrgChartIterator const &other) const {
      return !(*this == other);
  }
- bool OrgChart::OrgChartIterator::operator < (OrgChart::OrgChartIterator const &other) { // for bad tests
-     return !(*this == other);
- }
+
 namespace ariel{
     bool operator == (OrgChart::OrgChartIterator const &lhs, OrgChart::OrgChartIterator const &rhs) {
         return lhs.orderedNodes.at(lhs.currPtr) == rhs.orderedNodes.at(rhs.currPtr);

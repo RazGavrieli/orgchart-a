@@ -2,10 +2,11 @@
 #include <iostream>
 #include "treeNode.hpp"
 
+
 namespace ariel {
     class OrgChart {
         public:
-        class OrgChartIterator : public std::iterator<std::forward_iterator_tag, treeNode*> { // NESTED CLASS
+        class OrgChartIterator : public std::iterator<std::input_iterator_tag, treeNode*> { // NESTED CLASS
             size_t currPtr;
             size_t mc;
             std::vector<treeNode*> orderedNodes;
@@ -16,15 +17,13 @@ namespace ariel {
                 OrgChartIterator(std::vector<treeNode*> &, const size_t*, size_t);
 
                     /* --- operators --- */
-                bool operator != (OrgChartIterator const &other);
+                bool operator != (OrgChartIterator const &other) const;
                 friend bool operator == (OrgChartIterator const &lhs, OrgChartIterator const &rhs);
-                bool operator < (OrgChartIterator const &other); // for bad tests
-    
+                 
                 OrgChartIterator& operator ++ (); 
                 OrgChartIterator operator ++ (int); 
-                std::string operator*() const; /* This would return a reference if we wanted to make modifications. 
-                                due to the tests being unpreditable I have to return a string type and not a node. */
-                treeNode* operator~();   /* This is what operator* would be if the tests were predictable. */
+                std::string operator*() const; /* This would return a reference if we wanted to make modifications. */
+                treeNode* operator~();   /* This is for iterating through the nodes themselves */
                 std::string const * operator->() const; 
                 
 
@@ -34,7 +33,6 @@ namespace ariel {
         treeNode *rootNode;
         size_t mc;
         size_t size;
-        size_t maxLevel;
             OrgChartIterator end_iterator() const; 
             OrgChartIterator level_iterator(bool) const;
         public:
@@ -45,7 +43,7 @@ namespace ariel {
             ~OrgChart(); // destructor
 
                 /* --- operators --- */
-            OrgChart& operator=(OrgChart);
+            OrgChart& operator=(OrgChart const&);
             OrgChart& operator=(OrgChart&&) = default; // move assigemnt operator
             friend std::ostream& operator << (std::ostream& , OrgChart const &); // output 
 
@@ -65,7 +63,6 @@ namespace ariel {
 
             OrgChartIterator begin_preorder() const;
             OrgChartIterator end_preorder() const;
-
 
             //void fillBFS(std::vector<treeNode*>*, treeNode*);  // USED ONLY IF THE TESTS WILL BE TOO SPECIFIC
  

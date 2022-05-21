@@ -24,9 +24,9 @@ int main()
   DemoRun.add_sub("2", "88").add_sub("56", "1").add_sub("100", "8").add_sub("100", "9");
   //   Input :          10
   //              /   /    \   \
-//             2  34    56   100
+  //             2  34    56   100
   //            / \        |   / | \
-//           77  88      1   7  8  9
+  //           77  88      1   7  8  9
 
   cout << DemoRun;
   // Output : 10
@@ -35,14 +35,14 @@ int main()
   cout << "\n";
   try
   {
-    auto it = find(DemoRun.begin(), DemoRun.end(), "77"); // change 78 to something that is in the tree
+    auto it = find(DemoRun.begin(), DemoRun.end(), "77"); 
     cout << *it << "\n";
   }
   catch (...)
   {
   }
   cout << "\n";
-  int i = 1;
+  int i = 1; // change i to decided all of demorun smaller than i : 
   if (std::all_of(DemoRun.begin(), DemoRun.end(), [i](std::string a)
                   { return a.size() <= i; }))
   {
@@ -56,6 +56,7 @@ int main()
     cout << *it << " ";
   }
 
+    cout << endl;
   return 0;
 }
 
