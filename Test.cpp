@@ -92,12 +92,25 @@ TEST_CASE("reverse level iterator")
 
 TEST_CASE("bad cases")
 {
+    SUBCASE("two iterators") {
+        OrgChart organization;
+        organization.add_root("first")
+        .add_sub("first", "second-1")
+        .add_sub("first", "second-2"); 
+        auto it2 =  organization.begin_preorder();
+        auto it = organization.begin_preorder();
+        CHECK_NOTHROW(it++);
+        it2++;
+        CHECK_EQ(it, it2);
+        it2++;
+        CHECK_NE(it, it2);
+    }
     SUBCASE("mid iteration edit") {
     /* This checks if the iterator throws an exception if the tree has been edited since iterator creation */
     OrgChart organization;
     organization.add_root("first")
         .add_sub("first", "second-1")
-        .add_sub("first", "second-2");   
+        .add_sub("first", "second-2");  
     auto it = organization.begin_preorder();
     CHECK_NOTHROW(it++);
     organization.add_sub("second-1", "third");

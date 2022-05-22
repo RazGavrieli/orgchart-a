@@ -11,7 +11,7 @@ OrgChart::OrgChart() {
     rootNode = nullptr;
 }
 
-OrgChart::OrgChart(OrgChart &other) {
+OrgChart::OrgChart(OrgChart &other) { // copy constructor
     mc = 0;
     size = other.size;
     rootNode = other.rootNode;
@@ -22,6 +22,9 @@ OrgChart& OrgChart::add_root(std::string new_name) {
      * @brief Creates a new root for the Organization Chart with the given @param new_name.
      * If the root already exists, only change it's name using setName treeNode's setter. 
      */
+    if (new_name.empty()) {
+        throw std::runtime_error("name can't be empty!");
+    }
     if (rootNode != nullptr) {
         rootNode->setName(new_name);
         return *this;
@@ -38,6 +41,9 @@ OrgChart& OrgChart::add_sub(std::string parent_name, std::string new_name) {
      * @brief Add subordinate to a given parent name of node. 
      * If the parent name was not found in the tree throw an exception. 
      */
+    if (new_name.empty()) {
+        throw std::runtime_error("name can't be empty!");
+    }
     if (rootNode==nullptr) {
         throw std::runtime_error("The tree has no root!");
     }
